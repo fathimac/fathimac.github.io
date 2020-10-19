@@ -17,10 +17,18 @@
     <link rel="stylesheet" href="https://www.webrtc-experiment.com/style.css">
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
         li {
             border-bottom: 1px solid rgb(189, 189, 189);
             border-left: 1px solid rgb(189, 189, 189);
             padding: .5em;
+        }
+        article {
+            padding: 2em 0;
+            margin: 0;
+            width: 100%;
         }
         label {
             display: inline-block;
@@ -92,133 +100,142 @@
 </head>
 
 <body>
-    <article>
-        <header style="text-align: center;">
-            <h1>
-                Data Collection for Hand Gesture Recognition Using <a href="https://github.com/muaz-khan/RecordRTC">RecordRTC</a>
-            </h1>
-        </header>
+    <div style="width: 1840px; overflow: auto; margin: auto; background: #ffffff">
+		<div style="width:300px; float:left;">
+            <img id="imagePattern" src="patterns.png" width="auto" height="100%" style="margin:auto; display: block;">
+        </div>
+		<div style="width: 1540px; float:right;">
+        
+            <article style="margin: 0;min-width:1540px;max-width:2000px" id = "articletop" ; >
+        
+		        <header style="text-align: center; margin: 0;">
+                    <h1>
+                        Data Collection Tool for Hand Gesture Recognition Project Using <a href="https://github.com/muaz-khan/RecordRTC">RecordRTC</a>
+                    </h1>
+                </header>
+        
+                <section class="experiment recordrtc" style="width=1020">
+                    <h2 class="header" style="margin: 0;">
+                        <select hidden class="recording-media">
+                            <option value="record-audio-plus-video">Microphone+Camera</option>
+                        </select>
 
-        <section class="experiment recordrtc">
-            <h2 class="header" style="margin: 0;">
-                <select hidden class="recording-media">
-                    <option value="record-audio-plus-video">Microphone+Camera</option>
-                </select>
+                        <span hidden style="font-size: 15px;">into</span>
 
-                <span hidden style="font-size: 15px;">into</span>
+                        <select hidden class="media-container-format">
+                            <option>default</option>
+                        </select>
 
-                <select hidden class="media-container-format">
-                    <option>default</option>
-                </select>
+                        <input hidden type="checkbox" id="chk-timeSlice" style="margin:0;width:auto;" title="Use intervals based recording" />
+                        
+                        <label hidden for="chk-timeSlice" style="font-size: 15px;margin:0;width: auto;cursor: pointer;-webkit-user-select:none;user-select:none;"  title="Use intervals based recording"></label>
 
-                <input hidden type="checkbox" id="chk-timeSlice" style="margin:0;width:auto;" title="Use intervals based recording">
-                <label hidden for="chk-timeSlice" style="font-size: 15px;margin:0;width: auto;cursor: pointer;-webkit-user-select:none;user-select:none;"  title="Use intervals based recording"></label>
+                        <br>
 
-                <br>
+                        <button id="btn-start-recording">Start Recording</button>
+                        <button id="btn-pause-recording" style="display: none; font-size: 15px;">Pause</button>
 
-                <button id="btn-start-recording">Start Recording</button>
-                <button id="btn-pause-recording" style="display: none; font-size: 15px;">Pause</button>
+                        <div  style="display: inline-block;">
+                            <input  hidden type="checkbox" id="chk-fixSeeking" style="margin:0;width:auto;" title="Fix video seeking issues?" />
+                            <label for="chk-fixSeeking" style="font-size: 15px;margin:0;width: auto;cursor: pointer;-webkit-user-select:none;user-select:none;" title="Fix video seeking issues?"></label>
+                        </div>
 
-                <div  style="display: inline-block;">
-                    <input  hidden type="checkbox" id="chk-fixSeeking" style="margin:0;width:auto;" title="Fix video seeking issues?">
-                    <label for="chk-fixSeeking" style="font-size: 15px;margin:0;width: auto;cursor: pointer;-webkit-user-select:none;user-select:none;" title="Fix video seeking issues?"></label>
-                </div>
-
-                <hr style="border-top: 0;border-bottom: 0 solid rgb(0, 0, 0);margin: 0px -0px;margin-top: 0;">
-                <select hidden class="media-resolutions">
-                    <option value="default">Default resolutions</option>
-                    <option value="1920x1080">1080p</option>
-                    <option value="1280x720">720p</option>
-                    <option value="640x480">480p</option>
-                    <option value="3840x2160">4K Ultra HD (3840x2160)</option>
-                </select>
-
-                <select hidden class="media-framerates">
-                    <option value="default">Default framerates</option>
-                    <option value="5">5 fps</option>
-                    <option value="15">15 fps</option>
-                    <option value="24">24 fps</option>
-                    <option value="30">30 fps</option>
-                    <option value="60">60 fps</option>
-                </select>
-
-                <select hidden class="media-bitrates">
-                    <option value="default">Default bitrates</option>
-                    <option value="8000000000">1 GB bps</option>
-                    <option value="800000000">100 MB bps</option>
-                    <option value="8000000">1 MB bps</option>
-                    <option value="800000">100 KB bps</option>
-                    <option value="8000">1 KB bps</option>
-                    <option value="800">100 Bytes bps</option>
-                </select>
-            </h2>
-
-            <div style="text-align: center; display: none;">
-                <button id="save-to-disk">Save To Disk</button>
+                        <hr style="border-top: 0;border-bottom: 0 solid rgb(0, 0, 0);margin: 0px -0px;margin-top: 0;">
                 
-                <div style="margin-top: 10px;">
-                    <span id="signinButton" class="pre-sign-in">
-                      <span
-                        class="g-signin"
-                        data-callback="signinCallback"
-                        data-clientid="41556190767-115ifahd55lk4ln5pop4jus55cr4l7oh.apps.googleusercontent.com"
-                        data-cookiepolicy="single_host_origin"
-                        data-scope="https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube">
-                      </span>
-                    </span>
+                        <select hidden class="media-resolutions">
+                            <option value="default">Default resolutions</option>
+                            <option value="1920x1080">1080p</option>
+                            <option value="1280x720">720p</option>
+                            <option value="640x480">480p</option>
+                            <option value="3840x2160">4K Ultra HD (3840x2160)</option>
+                        </select>
 
-                  
-                </div>
-            </div>
-			<div align="center">
-<div style="display: inline-block; margin-top: 10px;" id="recording-player">  </div>
-<div style="display: inline-block;"> <img src="Pattern-1.png"> </div>
-</div>
-			
-        </section>
+                        <select hidden class="media-framerates">
+                            <option value="default">Default framerates</option>
+                            <option value="5">5 fps</option>
+                            <option value="15">15 fps</option>
+                            <option value="24">24 fps</option>
+                            <option value="30">30 fps</option>
+                            <option value="60">60 fps</option>
+                        </select>
 
-        <script>
-            (function() {
-                var params = {},
-                    r = /([^&=]+)=?([^&]*)/g;
+                        <select hidden class="media-bitrates">
+                            <option value="default">Default bitrates</option>
+                            <option value="8000000000">1 GB bps</option>
+                            <option value="800000000">100 MB bps</option>
+                            <option value="8000000">1 MB bps</option>
+                            <option value="800000">100 KB bps</option>
+                            <option value="8000">1 KB bps</option>
+                            <option value="800">100 Bytes bps</option>
+                        </select>
+                    </h2>
 
-                function d(s) {
-                    return decodeURIComponent(s.replace(/\+/g, ' '));
-                }
+                    <div style="text-align: center; display: none;">
+                        <button id="save-to-disk">Save To Disk</button>
+                
+                        <div style="margin-top: 10px;">
+                            <span id="signinButton" class="pre-sign-in">
+                                <span
+                                    class="g-signin"
+                                    data-callback="signinCallback"
+                                    data-clientid="41556190767-115ifahd55lk4ln5pop4jus55cr4l7oh.apps.googleusercontent.com"
+                                    data-cookiepolicy="single_host_origin"
+                                    data-scope="https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube">
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div align="center">
+                        <div style="display: inline-block; margin-top: 10px;" id="recording-player"></div>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </div>
+        
+    <script>
+        (function() {
+            var params = {},
+                r = /([^&=]+)=?([^&]*)/g;
 
-                var match, search = window.location.search;
-                while (match = r.exec(search.substring(1))) {
-                    params[d(match[1])] = d(match[2]);
-
-                    if(d(match[2]) === 'true' || d(match[2]) === 'false') {
-                        params[d(match[1])] = d(match[2]) === 'true' ? true : false;
-                    }
-                }
-
-                window.params = params;
-            })();
-
-            function addStreamStopListener(stream, callback) {
-                stream.addEventListener('ended', function() {
-                    callback();
-                    callback = function() {};
-                }, false);
-                stream.addEventListener('inactive', function() {
-                    callback();
-                    callback = function() {};
-                }, false);
-                stream.getTracks().forEach(function(track) {
-                    track.addEventListener('ended', function() {
-                        callback();
-                        callback = function() {};
-                    }, false);
-                    track.addEventListener('inactive', function() {
-                        callback();
-                        callback = function() {};
-                    }, false);
-                });
+            function d(s) {
+                return decodeURIComponent(s.replace(/\+/g, ' '));
             }
-        </script>
+
+            var match, search = window.location.search;
+            while (match = r.exec(search.substring(1))) {
+                params[d(match[1])] = d(match[2]);
+
+                if(d(match[2]) === 'true' || d(match[2]) === 'false') {
+                    params[d(match[1])] = d(match[2]) === 'true' ? true : false;
+                }
+            }
+
+            window.params = params;
+        })();
+
+        function addStreamStopListener(stream, callback) {
+            stream.addEventListener('ended', function() {
+                callback();
+                callback = function() {};
+            }, false);
+            stream.addEventListener('inactive', function() {
+                callback();
+                callback = function() {};
+            }, false);
+            stream.getTracks().forEach(function(track) {
+                track.addEventListener('ended', function() {
+                    callback();
+                    callback = function() {};
+                }, false);
+                track.addEventListener('inactive', function() {
+                    callback();
+                    callback = function() {};
+                }, false);
+            });
+        }
+    </script>
 
         <script>
             var video = document.createElement('video');
@@ -227,8 +244,8 @@
                 title: 'Recording status: inactive',
                 buttons: ['full-screen'/*, 'take-snapshot'*/],
                 showOnMouseEnter: false,
-		width: 780,
-                height: 360,
+                width: 1380,
+				height: 650,
                 onTakeSnapshot: function() {
                     var canvas = document.createElement('canvas');
                     canvas.width = mediaElement.clientWidth;
@@ -1932,20 +1949,15 @@
                 }
             };
         </script>
-		<script>
-			for (var a=[],i=1;i<10;++i) a[i]=i;
-			function shuffle(array) {
-				var tmp, current, top = array.length;
-				if(top) while(--top) {
-					current = Math.floor(Math.random() * (top + 1));
-					tmp = array[current];
-					array[current] = array[top];
-					array[top] = tmp;
-				}
-				return array;
-			}
-			a = shuffle(a);
-		</script>
+		<script language="javascript">
+        function autoResizeDiv()
+        {
+            document.getElementById('imagePattern').style.height = window.innerHeight +'px';
+			//document.getElementById('articletop').style.height = window.innerHeight +'px';
+        }
+        window.onresize = autoResizeDiv;
+        autoResizeDiv();
+    </script>
     </article>
     <!-- commits.js is useless for you! -->
     <script>
