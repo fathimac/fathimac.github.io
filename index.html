@@ -106,12 +106,12 @@
         </div>
 		<div style="width: 1540px; float:right;">
         
-            <article style="margin: 0;min-width:1540px;max-width:2000px" id = "articletop" ; >
+            <article style="margin: 0;min-width:1540px;max-width:2000px;min-height:900px" id = "articletop" ; >
         
 		        <header style="text-align: center; margin: 0;">
-                    <h1>
-                        Data Collection Tool for Hand Gesture Recognition Project Using <a href="https://github.com/muaz-khan/RecordRTC">RecordRTC</a>
-                    </h1>
+                    <h2><b>
+                        Video Recording Tool
+                    </b></h2>
                 </header>
         
                 <section class="experiment recordrtc" style="width=1020">
@@ -185,10 +185,20 @@
                             </span>
                         </div>
                     </div>
-                    
+                    </header>
+						        
                     <div align="center">
                         <div style="display: inline-block; margin-top: 10px;" id="recording-player"></div>
                     </div>
+					<header style="text-align: center; margin: 0;">
+                        For recording instructions, please check this <a href="https://drive.google.com/file/d/15uhRc0bAXQruBHtH6l-OEmyBkXx76x2v/view?usp=sharing">link</a>
+                    
+					</header>
+						        <header style="text-align: center; margin: 0;">
+                        Once recording is completed, upload the files at: <a href="https://drive.google.com/drive/u/4/folders/1aI1LoYYm12w1lSc8Y9pAvz50Ha4QNPim">Drive Link</a>
+                   
+                </header>
+				
                 </section>
             </article>
         </div>
@@ -245,7 +255,7 @@
                 buttons: ['full-screen'/*, 'take-snapshot'*/],
                 showOnMouseEnter: false,
                 width: 1380,
-				height: 650,
+				height: 630,
                 onTakeSnapshot: function() {
                     var canvas = document.createElement('canvas');
                     canvas.width = mediaElement.clientWidth;
