@@ -106,7 +106,7 @@
         </div>
 		<div id = "meddiv" style="float:right;">
         
-            <article id = "articletop" style="margin: 0;min-width:1540px;max-width:2000px;min-height:900px" >
+            <article id = "articletop" style="margin: 0;" >
         
 		        <header style="text-align: center; margin: 0;">
                     <h2><b>
@@ -1969,8 +1969,8 @@
 			document.getElementById('topdiv').style.width = window.innerWidth +'px';
 			document.getElementById('meddiv').style.height = window.innerHeight +'px';
 			document.getElementById('meddiv').style.width = 0.83*window.innerWidth +'px';
-			//document.getElementById('articletop').style.min-width = 0.9*window.innerWidth +'px';
-			//document.getElementById('articletop').style.min-height = 0.9*window.innerWidth +'px';
+			document.getElementById('articletop').style.min-width = 0.83*window.innerWidth +'px';
+			document.getElementById('articletop').style.min-height = 0.9*window.innerHeight +'px';
 			
         }
         window.onresize = autoResizeDiv;
