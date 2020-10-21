@@ -100,21 +100,21 @@
 </head>
 
 <body>
-    <div id = "topdiv" style="overflow: auto; margin: auto; background: #ffffff">
-		<div style="float:left;">
+    <div id="topdiv" style="width: 1140px; overflow: auto; margin: auto; background: #ffffff">
+		<div style="width:300px; float:left;">
             <img id="imagePattern" src="patterns.png" width="auto" height="100%" style="margin:auto; display: block;">
         </div>
-		<div id = "meddiv" style="float:right;">
+		<div style="width: 840px; float:right;">
         
-            <article id = "articletop" style="margin: 0;min-width:1540px;" >
+            <article style="margin: 0;" id = "articletop" >
         
 		        <header style="text-align: center; margin: 0;">
-                    <h2><b>
+                   <h2><b>
                         Video Recording Tool
                     </b></h2>
                 </header>
         
-                <section class="experiment recordrtc" style="width=1020">
+                <section class="experiment recordrtc">
                     <h2 class="header" style="margin: 0;">
                         <select hidden class="recording-media">
                             <option value="record-audio-plus-video">Microphone+Camera</option>
@@ -185,10 +185,9 @@
                             </span>
                         </div>
                     </div>
-                    </header>
-						        
+                    
                     <div align="center">
-                        <div style="display: inline-block;text-align: left; margin-top: 10px;" id="recording-player"></div>
+                        <div style="display: inline-block; margin-top: 10px;" id="recording-player"></div>
                     </div>
 					<header style="text-align: center; margin: 0;">
                         For recording instructions, please check this <a href="https://drive.google.com/file/d/15uhRc0bAXQruBHtH6l-OEmyBkXx76x2v/view?usp=sharing">link</a>
@@ -198,7 +197,6 @@
                         Once recording is completed, upload the files at: <a href="https://drive.google.com/drive/u/4/folders/1aI1LoYYm12w1lSc8Y9pAvz50Ha4QNPim">Drive Link</a>
                    
                 </header>
-				
                 </section>
             </article>
         </div>
@@ -254,8 +252,8 @@
                 title: 'Recording status: inactive',
                 buttons: ['full-screen'/*, 'take-snapshot'*/],
                 showOnMouseEnter: false,
-                width: 0.73* window.innerWidth,
-				height: 0.63*window.innerHeight,
+                width: 720,
+				height: 300,
                 onTakeSnapshot: function() {
                     var canvas = document.createElement('canvas');
                     canvas.width = mediaElement.clientWidth;
@@ -1962,17 +1960,7 @@
 		<script language="javascript">
         function autoResizeDiv()
         {
-            document.getElementById('imagePattern').style.height = 0.9*window.innerHeight +'px';
-			document.getElementById('imagePattern').style.width = 0.17*window.innerWidth +'px';
-			document.getElementById('articletop').style.height = 0.9*window.innerHeight +'px';
-			document.getElementById('topdiv').style.height =0.9*window.innerHeight +'px';
-			document.getElementById('topdiv').style.width = window.innerWidth +'px';
-			document.getElementById('meddiv').style.height = 0.85*window.innerHeight +'px';
-			document.getElementById('meddiv').style.width = 0.83*window.innerWidth +'px';
-			//document.getElementById('articletop').style.min-width = 0.8*window.innerWidth +'px';
-			//document.getElementById('articletop').style.min-height = 0.9*window.innerWidth +'px';
-			document.getElementById('recording-player').style.textAlign = "left";
-			
+            document.getElementById('imagePattern').style.height = window.innerHeight +'px';
         }
         window.onresize = autoResizeDiv;
         autoResizeDiv();
