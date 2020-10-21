@@ -100,13 +100,13 @@
 </head>
 
 <body>
-    <div style="width: 1840px; overflow: auto; margin: auto; background: #ffffff">
-		<div style="width:300px; float:left;">
+    <div id = "topdiv" style="overflow: auto; margin: auto; background: #ffffff">
+		<div style="float:left;">
             <img id="imagePattern" src="patterns.png" width="auto" height="100%" style="margin:auto; display: block;">
         </div>
-		<div style="width: 1540px; float:right;">
+		<div id = "meddiv" style="float:right;">
         
-            <article style="margin: 0;min-width:1540px;max-width:2000px;min-height:900px" id = "articletop" ; >
+            <article id = "articletop" style="margin: 0;min-width:1540px;max-width:2000px;min-height:900px"; >
         
 		        <header style="text-align: center; margin: 0;">
                     <h2><b>
@@ -1963,7 +1963,14 @@
         function autoResizeDiv()
         {
             document.getElementById('imagePattern').style.height = window.innerHeight +'px';
-			//document.getElementById('articletop').style.height = window.innerHeight +'px';
+			document.getElementById('imagePattern').style.width = 0.17*window.innerWidth +'px';
+			document.getElementById('articletop').style.height = window.innerHeight +'px';
+			document.getElementById('topdiv').style.height = window.innerHeight +'px';
+			document.getElementById('topdiv').style.width = window.innerWidth +'px';
+			document.getElementById('meddiv').style.height = window.innerHeight +'px';
+			document.getElementById('meddiv').style.width = 0.83*window.innerWidth +'px';
+			document.getElementById('articletop').style.width = 0.83*window.innerWidth +'px';
+			
         }
         window.onresize = autoResizeDiv;
         autoResizeDiv();
