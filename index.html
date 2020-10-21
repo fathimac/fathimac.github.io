@@ -256,7 +256,6 @@
                 showOnMouseEnter: false,
                 width: 0.73* window.innerWidth,
 				height: 0.63*window.innerHeight,
-		    align:left,
                 onTakeSnapshot: function() {
                     var canvas = document.createElement('canvas');
                     canvas.width = mediaElement.clientWidth;
@@ -1972,6 +1971,7 @@
 			document.getElementById('meddiv').style.width = 0.83*window.innerWidth +'px';
 			//document.getElementById('articletop').style.min-width = 0.8*window.innerWidth +'px';
 			//document.getElementById('articletop').style.min-height = 0.9*window.innerWidth +'px';
+			document.getElementById('recording-player').style.textAlign = "left";
 			
         }
         window.onresize = autoResizeDiv;
