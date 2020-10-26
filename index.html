@@ -75,6 +75,7 @@
         .recordrtc select {
             font-size: 17px;
         }
+		
     </style>
 
     <script src="/RecordRTC.js"></script>
@@ -100,15 +101,6 @@
             <img id="imagePattern" src="patterns.png" width="auto" height="550px" style="margin:auto; display: block;">
         </div>
 		<div style="width: 840px;margin-top:0px; float:right;">
-        
-            <article style="margin: 0;margin-top:0px;padding:0px;" id = "articletop" >
-        
-		        <header style="text-align: center; margin: 0;margin-top:0px; padding:0px;">
-                   <h3><b>
-                        Video Recording Tool
-                    </b></h3>
-                </header>
-        
                 <section class="experiment recordrtc" style="margin-top:0px;padding:0px;">
                     <h2 class="header" style="margin: 0;margin-top:0px;padding:0px;">
                         <select hidden class="recording-media">
@@ -127,15 +119,15 @@
 
                         <br>
 
-                        <button style="font-size: 15px;" id="btn-start-recording">Start Recording</button>
-                        <button id="btn-pause-recording" style="display: none; font-size: 15px;">Pause</button>
-
+                        <button  id="btn-start-recording">Start Recording</button>
+                        <button id="btn-pause-recording" style="display: none;">Pause</button>
+<button  id="save-to-disk" >Save To Disk</button>
                         <div  style="display: inline-block;">
                             <input  hidden type="checkbox" id="chk-fixSeeking" style="margin:0;width:auto;" title="Fix video seeking issues?" />
                             <label for="chk-fixSeeking" style="font-size: 0px;margin:0;width: auto;cursor: pointer;-webkit-user-select:none;user-select:none;" title="Fix video seeking issues?"></label>
                         </div>
 
-                        <hr style="border-top: 0;border-bottom: 0 solid rgb(0, 0, 0);margin: 0px -0px;margin-top: 0;">
+                        <hr style="border-top: 0;border-bottom: 0 solid rgb(0, 0, 0);margin: 0px -0px;margin-top: 0;padding:0px">
                 
                         <select hidden class="media-resolutions">
                             <option value="default">Default resolutions</option>
@@ -164,23 +156,17 @@
                             <option value="800">100 Bytes bps</option>
                         </select>
                     </h2>
-                    <div style="text-align: center; display: none;">
-                        <button id="save-to-disk">Save To Disk</button>
-                    </div>
+                   
                     
                     <div align="center">
                         <div style="display: inline-block; margin-top: 10px;" id="recording-player"></div>
                     </div>
-					<header style="text-align: center; margin: 0;">
-                        For recording instructions, please check this <a href="https://drive.google.com/file/d/15uhRc0bAXQruBHtH6l-OEmyBkXx76x2v/view?usp=sharing">link</a>
-                    
-					</header>
-						        <header style="text-align: center; margin: 0;">
+					
+						        <p style="text-align: center; margin: 0;">
                         After completing the recording, please upload the files <a href="https://docs.google.com/forms/d/e/1FAIpQLSdsqc_hmcv1csuRoL5OmEWgzKynMaSbmOCLRhhKEoCjOqhYbA/viewform?usp=sf_link">here.</a>
                    
-                </header>
+                </p>
                 </section>
-            </article>
         </div>
     </div>
         
@@ -1902,7 +1888,7 @@ return;
                     chkFixSeeking.parentNode.style.display = 'none';
                     btnStartRecording.style.fontSize = '15px';
                     btnStartRecording.recordRTC.pauseRecording();
-                    recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = 'Recording status: paused';
+                    recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = ' ';
                     recordingPlayer.pause();
 
                     btnPauseRecording.style.fontSize = 'inherit';
