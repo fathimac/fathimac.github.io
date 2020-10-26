@@ -21,12 +21,12 @@
             box-sizing: border-box;
         }
         li {
-            border-bottom: 1px solid rgb(189, 189, 189);
-            border-left: 1px solid rgb(189, 189, 189);
-            padding: .5em;
+            border-bottom:  solid rgb(189, 189, 189);
+            border-left:  solid rgb(189, 189, 189);
+            
         }
         article {
-            padding: 2em 0;
+            
             margin: 0;
             width: 100%;
         }
@@ -37,10 +37,6 @@
 
         h1 span {
             background: yellow;
-            border: 2px solid #8e1515;
-            padding: 2px 8px;
-            margin: 2px 5px;
-            border-radius: 7px;
             color: #8e1515;
             display: inline-block;
         }
@@ -52,7 +48,6 @@
         .recordrtc button, .recordrtc select {
             vertical-align: middle;
             line-height: 1;
-            padding: 2px 5px;
             height: auto;
             font-size: inherit;
             margin: 0;
@@ -100,18 +95,18 @@
 </head>
 
 <body>
-    <div id="topdiv" style="width: 1140px; overflow: auto; margin: auto; background: #ffffff">
+    <div id="topdiv" style="margin-top:0px;width: 1140px; height=550px; overflow: auto; margin: auto; background: #ffffff">
 		<div style="width:300px; float:left;">
-            <img id="imagePattern" src="patterns.png" width="auto" height="100%" style="margin:auto; display: block;">
+            <img id="imagePattern" src="patterns.png" width="auto" height="550px" style="margin:auto; display: block;">
         </div>
-		<div style="width: 840px; float:right;">
+		<div style="width: 840px;margin-top:0px; float:right;">
         
-            <article style="margin: 0;" id = "articletop" >
+            <article style="margin: 0;margin-top:0px;" id = "articletop" >
         
-		        <header style="text-align: center; margin: 0;">
-                   <h2><b>
+		        <header style="text-align: center; margin: 0;margin-top:0px;">
+                   <h3><b>
                         Video Recording Tool
-                    </b></h2>
+                    </b></h3>
                 </header>
         
                 <section class="experiment recordrtc">
@@ -120,7 +115,7 @@
                             <option value="record-audio-plus-video">Microphone+Camera</option>
                         </select>
 
-                        <span hidden style="font-size: 15px;">into</span>
+                        <span hidden style="font-size: 0px;">into</span>
 
                         <select hidden class="media-container-format">
                             <option>default</option>
@@ -128,16 +123,16 @@
 
                         <input hidden type="checkbox" id="chk-timeSlice" style="margin:0;width:auto;" title="Use intervals based recording" />
                         
-                        <label hidden for="chk-timeSlice" style="font-size: 15px;margin:0;width: auto;cursor: pointer;-webkit-user-select:none;user-select:none;"  title="Use intervals based recording"></label>
+                        <label hidden for="chk-timeSlice" style="font-size: 0px;margin:0;width: auto;cursor: pointer;-webkit-user-select:none;user-select:none;"  title="Use intervals based recording"></label>
 
                         <br>
 
-                        <button id="btn-start-recording">Start Recording</button>
+                        <button style="font-size: 15px;" id="btn-start-recording">Start Recording</button>
                         <button id="btn-pause-recording" style="display: none; font-size: 15px;">Pause</button>
 
                         <div  style="display: inline-block;">
                             <input  hidden type="checkbox" id="chk-fixSeeking" style="margin:0;width:auto;" title="Fix video seeking issues?" />
-                            <label for="chk-fixSeeking" style="font-size: 15px;margin:0;width: auto;cursor: pointer;-webkit-user-select:none;user-select:none;" title="Fix video seeking issues?"></label>
+                            <label for="chk-fixSeeking" style="font-size: 0px;margin:0;width: auto;cursor: pointer;-webkit-user-select:none;user-select:none;" title="Fix video seeking issues?"></label>
                         </div>
 
                         <hr style="border-top: 0;border-bottom: 0 solid rgb(0, 0, 0);margin: 0px -0px;margin-top: 0;">
@@ -169,21 +164,8 @@
                             <option value="800">100 Bytes bps</option>
                         </select>
                     </h2>
-
                     <div style="text-align: center; display: none;">
                         <button id="save-to-disk">Save To Disk</button>
-                
-                        <div style="margin-top: 10px;">
-                            <span id="signinButton" class="pre-sign-in">
-                                <span
-                                    class="g-signin"
-                                    data-callback="signinCallback"
-                                    data-clientid="41556190767-115ifahd55lk4ln5pop4jus55cr4l7oh.apps.googleusercontent.com"
-                                    data-cookiepolicy="single_host_origin"
-                                    data-scope="https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube">
-                                </span>
-                            </span>
-                        </div>
                     </div>
                     
                     <div align="center">
@@ -194,7 +176,7 @@
                     
 					</header>
 						        <header style="text-align: center; margin: 0;">
-                        After recording, complete the consent form and upload the files <a href="https://script.google.com/macros/s/AKfycbzPfSdWV_Vdaz8eu9NtRbgGgvUZT23qgS4gqGhVLZ1e2PqhsDc/exec?action=sign&formId=1PNzZVq2DRYsrMlpO2edvTlNfGd3gezVb2DR2vmqijiU&editor=U2FsdGVkX1%2BM2vW1VLRu2D1bplMG9G5CLMkweW%2BYBQQvC%2FC%2B75jEg4VsdXDBz10r">here.</a>
+                        After completing the recording, please upload the files <a href="https://docs.google.com/forms/d/e/1FAIpQLSdsqc_hmcv1csuRoL5OmEWgzKynMaSbmOCLRhhKEoCjOqhYbA/viewform?usp=sf_link">here.</a>
                    
                 </header>
                 </section>
@@ -249,21 +231,9 @@
             var video = document.createElement('video');
             video.controls = false;
             var mediaElement = getHTMLMediaElement(video, {
-                title: 'Recording status: inactive',
-                buttons: ['full-screen'/*, 'take-snapshot'*/],
-                showOnMouseEnter: false,
-                width: 720,
-				height: 300,
-                onTakeSnapshot: function() {
-                    var canvas = document.createElement('canvas');
-                    canvas.width = mediaElement.clientWidth;
-                    canvas.height = mediaElement.clientHeight;
-
-                    var context = canvas.getContext('2d');
-                    context.drawImage(recordingPlayer, 0, 0, canvas.width, canvas.height);
-
-                    window.open(canvas.toDataURL('image/png'));
-                }
+                title: ' ',
+                buttons: [/*'full-screen'/*, 'take-snapshot'*/],
+                showOnMouseEnter: false
             });
             document.getElementById('recording-player').appendChild(mediaElement);
 
@@ -305,18 +275,18 @@
                         button.disabled = false;
                         button.disableStateWaiting = false;
                     }, 2000);
-
                     button.innerHTML = 'Start Recording';
-
                     function stopStream() {
+						
                         if(button.stream && button.stream.stop) {
                             button.stream.stop();
-                            button.stream = null;
+							button.stream = null;
                         }
 
                         if(button.stream instanceof Array) {
                             button.stream.forEach(function(stream) {
                                 stream.stop();
+								button.stream.getTracks()[0].stop();
                             });
                             button.stream = null;
                         }
@@ -326,7 +296,7 @@
                         html += '<br>Size: ' + bytesToSize(button.recordRTC.getBlob().size);
                         recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = html;
                     }
-
+					
                     if(button.recordRTC) {
                         if(button.recordRTC.length) {
                             button.recordRTC[0].stopRecording(function(url) {
@@ -381,7 +351,8 @@
                         }
                     }
 
-                    return;
+                    stopStream();
+return;
                 }
 
                 if(!event) return;
@@ -547,7 +518,7 @@
                 }
 
                 if(recordingMedia.value === 'record-audio-plus-video') {
-                    captureAudioPlusVideo(commonConfig);
+                    captureVideo(commonConfig);
 
                     button.mediaCapturedCallback = function() {
                         if(typeof MediaRecorder === 'undefined') { // opera or chrome etc.
@@ -656,7 +627,7 @@
 
                         button.recordRTC.startRecording();
                         btnPauseRecording.style.display = '';
-                        recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = '<img src="https://www.webrtc-experiment.com/images/progress.gif">';
+                        
                     };
                 }
 
@@ -1946,7 +1917,7 @@
                     chkFixSeeking.parentNode.style.display = 'none';
                     btnStartRecording.style.fontSize = 'inherit';
                     btnStartRecording.recordRTC.resumeRecording();
-                    recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = '<img src="https://www.webrtc-experiment.com/images/progress.gif">';
+                    
                     recordingPlayer.play();
 
                     btnPauseRecording.style.fontSize = '15px';
@@ -1957,14 +1928,6 @@
                 }
             };
         </script>
-		<script language="javascript">
-        function autoResizeDiv()
-        {
-            document.getElementById('imagePattern').style.height = window.innerHeight +'px';
-        }
-        window.onresize = autoResizeDiv;
-        autoResizeDiv();
-    </script>
     </article>
     <!-- commits.js is useless for you! -->
     <script>
