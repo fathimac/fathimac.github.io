@@ -252,7 +252,13 @@
                 if(button.innerHTML === 'Stop Recording') {
 		    recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = '';
                     btnPauseRecording.style.display = 'none';
-                    
+                    button.disabled = true;
+                    button.disableStateWaiting = true;
+                    setTimeout(function() {
+                        button.disabled = false;
+                        button.disableStateWaiting = false;
+                    }, 500);
+
                     button.innerHTML = 'Start Recording';
                     function stopStream() {
 						
@@ -1882,8 +1888,10 @@ return;
                     recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = ' ';
                     recordingPlayer.pause();
 
-                    btnPauseRecording.innerHTML = 'Resume Recording';
-                    btnPauseRecording.disabled = false;
+                    setTimeout(function() {
+                        btnPauseRecording.innerHTML = 'Resume Recording';
+                        btnPauseRecording.disabled = false;
+                    }, 500);
                    
                 }
 
@@ -1895,7 +1903,9 @@ return;
                     recordingPlayer.play();
 
                     btnPauseRecording.innerHTML = 'Pause';
-                    btnPauseRecording.disabled = false;
+                    setTimeout(function() {
+                        btnPauseRecording.disabled = false;
+                    }, 500);
                 }
             };
         </script>
