@@ -248,8 +248,9 @@
 
             btnStartRecording.onclick = function(event) {
                 var button = btnStartRecording;
-
+		recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = '<img src="https://www.webrtc-experiment.com/images/progress.gif">';
                 if(button.innerHTML === 'Stop Recording') {
+		    recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = '';
                     btnPauseRecording.style.display = 'none';
                     button.disabled = true;
                     button.disableStateWaiting = true;
