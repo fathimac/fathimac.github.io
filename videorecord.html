@@ -1883,7 +1883,6 @@ return;
                 if(btnPauseRecording.innerHTML === 'Pause') {
                     btnStartRecording.disabled = true;
                     chkFixSeeking.parentNode.style.display = 'none';
-                    btnStartRecording.style.fontSize = '15px';
                     btnStartRecording.recordRTC.pauseRecording();
                     recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = ' ';
                     recordingPlayer.pause();
@@ -1903,7 +1902,6 @@ return;
                     
                     recordingPlayer.play();
 
-                    btnPauseRecording.style.fontSize = '15px';
                     btnPauseRecording.innerHTML = 'Pause';
                     setTimeout(function() {
                         btnPauseRecording.disabled = false;
