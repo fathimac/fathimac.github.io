@@ -1037,6 +1037,8 @@
                 }
 
                 recordingPlayer.addEventListener('ended', function() {
+		    btnPlayRecording.innerHTML = 'Play Recording';
+		    btnPlayRecording.style.backgroundImage = "url('Play.png')";
                     url = getURL(arg);
                     if(arg instanceof MediaStream) {
                      recordingPlayer.srcObject = arg;
