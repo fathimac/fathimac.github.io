@@ -201,7 +201,7 @@
             var div = document.createElement('section');
             mediaElement.media.parentNode.appendChild(div);
             mediaElement.media.muted = false;
-            mediaElement.media.autoplay = true;
+            mediaElement.media.autoplay = false;
             mediaElement.media.playsinline = true;
             div.appendChild(mediaElement.media);
             
@@ -241,7 +241,6 @@
                     button.innerHTML = 'Start Recording';
 					button.style.backgroundImage = "url('record.PNG')";
                     function stopStream() {
-						
                         if(button.stream && button.stream.stop) {
                             button.stream.stop();
 							button.stream = null;
@@ -257,8 +256,10 @@
 
                         videoBitsPerSecond = null;
                         var html = 'Recording status: stopped';
-                        html += '<br>Size: ' + bytesToSize(button.recordRTC.getBlob().size);
-                        recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = html;
+                        //html += '<br>Size: ' + bytesToSize(button.recordRTC.getBlob().size);
+                        //recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = html;
+                        recordingPlayer.autoplay = false;
+                        recordingPlayer.pause();
                     }
 					
                     if(button.recordRTC) {
@@ -316,7 +317,7 @@
                     }
 
                     stopStream();
-return;
+                    return;
                 }
 
                 if(!event) return;
@@ -344,6 +345,7 @@ return;
                         }
 
                         chkFixSeeking.parentNode.style.display = 'inline-block';
+                        recordingPlayer.pause();
                     },
                     onMediaCapturingFailed: function(error) {
                         console.error('onMediaCapturingFailed:', error);
@@ -431,7 +433,7 @@ return;
                                 var audio = new Audio();
                                 audio.src = audioRecorder.toURL();
                                 audio.controls = true;
-                                audio.autoplay = true;
+                                audio.autoplay = false;
 
                                 recordingPlayer.parentNode.appendChild(document.createElement('hr'));
                                 recordingPlayer.parentNode.appendChild(audio);
@@ -1130,6 +1132,22 @@ return;
                     }, 500);
                 }
             };
+
+            var btnPlayRecording = document.querySelector('#btn-play-recording');
+            btnPlayRecording.onclick = function() {
+			if(btnPlayRecording.innerHTML === 'Play Recording'){
+                recordingPlayer.play();
+				btnPlayRecording.innerHTML = 'Pause Recording';
+				btnPlayRecording.style.backgroundImage = "url('playpause.png')";
+				}
+			else{
+			    recordingPlayer.pause();
+				btnPlayRecording.innerHTML = 'Play Recording';
+				btnPlayRecording.style.backgroundImage = "url('Play.png')";
+			}
+			
+				
+            }
         </script>
     </article>
     <!-- commits.js is useless for you! -->
