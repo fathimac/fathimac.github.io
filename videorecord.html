@@ -240,20 +240,24 @@
             var defaultHeight;
 
             var btnStartRecording = document.querySelector('#btn-start-recording');
+	    var btnPlayRecording = document.querySelector('#btn-play-recording');
 
             window.onbeforeunload = function() {
                 btnStartRecording.disabled = false;
                 recordingMedia.disabled = false;
                 mediaContainerFormat.disabled = false;
+		btnPlayRecording.disabled = true;
 
                 chkFixSeeking.parentNode.style.display = 'inline-block';
             };
 
             btnStartRecording.onclick = function(event) {
+		btnPlayRecording.disabled = true;
                 var button = btnStartRecording;
 		        recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = '<img src="https://www.webrtc-experiment.com/images/progress.gif">';
                 if(button.innerHTML === 'Stop Recording') {
-		            recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = '';
+		    btnPlayRecording.disabled = false;
+		    recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = '';
                     
                     button.disabled = true;
                     button.disableStateWaiting = true;
