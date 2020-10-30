@@ -91,33 +91,35 @@
 
 <body>
     <div id="topdiv" style="margin-top:0px;width: auto; height=95vh; overflow: auto; margin: auto; background: #ffffff">
-	<div style="height:95vh; width:28vh; float:left;">
+	<div id="leftpanel" style="height:95vh; width:28vh; float:left;">
             <img id="imagePattern" src="patterns.png" width=100% height=100% style="margin:auto; display: block;">
         </div>
-	<div style="width: calc(100% - 28vh) ;margin-top:0px; float:right;">
+	<div id="rightpanel" style="width: calc(100% - 28vh); margin-top:0px; float:right;">
 		<section class="experiment recordrtc" style="margin-top:0px;padding:0px;">
 		    <h2 class="header" style="margin: 0;margin-top:0px;padding:0px;">
 			<select hidden class="recording-media">
 			    <option value="record-audio-plus-video">Microphone+Camera</option>
 			</select>
 
-			<span hidden style="font-size: 0px;margin-top:0px;padding:0px;">into</span>
+<!--			<span hidden style="font-size: 0px;margin-top:0px;padding:0px;">into</span>-->
 
 			<select hidden class="media-container-format">
 			    <option>default</option>
 			</select>
 
+<!--
 			<input hidden type="checkbox" id="chk-timeSlice" style="margin:0;margin-top:0px;padding:0px;width:auto;" title="Use intervals based recording" />
 
 			<label hidden for="chk-timeSlice" style="font-size: 0px;margin:0;margin-top:0px;padding:0px;width: auto;cursor: pointer;-webkit-user-select:none;user-select:none;"  title="Use intervals based recording"></label>
 
 			<br>
+-->
 
-			<button  id="btn-start-recording" style="height:120px; width:92px;font-size: 0px;background-image: url(record.PNG);">Start Recording</button>
-			<button id="btn-pause-recording" style="height:120px;width:92px;font-size: 0px;background-image: url(Pause.png);">Pause</button>
-			<button  id="btn-play-recording" style="height:120px;width:92px;font-size: 0px;background-image: url(Play.png);">Play Recording</button>
-			<button  id="save-to-disk" style="height:120px;width:92px;font-size: 0px;background-image: url(SaveToDisk.png);" >Save To Disk</button>
-			<button  id="upload-file" style="height:120px;width:92px;font-size: 0px;background-image: url(upload.png);" onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSe3_xiT3WFPd3792NBW3GHEJ_Ny0wxyKpP7fcJp7eNheOAyoA/viewform?usp=sf_link';">Upload Files</button>
+			<button  id="btn-start-recording" style="height:80px;width:62px; font-size: 0px; background-size: 100%; background-image: url(record.PNG);">Start Recording</button>
+			<button id="btn-pause-recording" style="height:80px;width:62px; font-size: 0px; background-size: 100%;background-image: url(Pause.png);">Pause</button>
+			<button  id="btn-play-recording" style="height:80px;width:62px; font-size: 0px; background-size: 100%;background-image: url(Play.png);">Play Recording</button>
+			<button  id="save-to-disk" style="height:80px;width:62px; font-size: 0px; background-size: 100%;background-image: url(SaveToDisk.png);" >Save To Disk</button>
+			<button  id="upload-file" style="height:80px;width:62px; font-size: 0px; background-size: 100%;background-image: url(upload.png);" onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSe3_xiT3WFPd3792NBW3GHEJ_Ny0wxyKpP7fcJp7eNheOAyoA/viewform?usp=sf_link';">Upload Files</button>
 			<div  style="display: inline-block;">
 			    <input  hidden type="checkbox" id="chk-fixSeeking" style="margin:0;width:auto;" title="Fix video seeking issues?" />
 			    <label for="chk-fixSeeking" style="font-size: 0px;margin:0;width: auto;cursor: pointer;-webkit-user-select:none;user-select:none;" title="Fix video seeking issues?"></label>
@@ -191,11 +193,33 @@
         <script>
             var video = document.createElement('video');
             video.controls = false;
+//            var vidWidth = document.getElementById("rightpanel").style.width;            
+//            var vidHeight = document.getElementById("leftpanel").style.height;
+            
+            var aspectratio = 720.0/1280.0;
+            
+//            var vidHeight = Math.min(0.7*screen.height, 720);
+//            var vidWidth = Math.min(0.7*screen.width, 1280);
+            var vidHeight = 0.7*screen.height;
+            var vidWidth = 0.7*screen.width;
+
+            
+            if (vidHeight > vidWidth*aspectratio){
+                vidHeight = vidWidth*aspectratio;
+            } else {
+                vidWidth = vidHeight/aspectratio;
+            }
+            
+            
             var mediaElement = getHTMLMediaElement(video, {
                 title: ' ',
                 buttons: [/*'full-screen', 'take-snapshot'*/],
-                showOnMouseEnter: false
+                showOnMouseEnter: false,
+                height: vidHeight,
+                width: vidWidth,
             });
+            
+                
             document.getElementById('recording-player').appendChild(mediaElement);
 
             var div = document.createElement('section');
