@@ -120,6 +120,7 @@
 
 			<button  id="btn-start-recording" style="height:80px;width:62px; font-size: 0px; background-size: 100%; background-image: url(record.PNG);">Start Recording</button>
 			<button id="btn-pause-recording" style="height:80px;width:62px; font-size: 0px; background-size: 100%;background-image: url(Pause.png);">Pause</button>
+			<button id="btn-stop-recording" style="height:80px;width:62px; font-size: 0px; background-size: 100%;background-image: url(Stop.png);">Stop</button>
 			<button  id="btn-play-recording" style="height:80px;width:62px; font-size: 0px; background-size: 100%;background-image: url(Play.png);">Play Recording</button>
 			<button  id="save-to-disk" style="height:80px;width:62px; font-size: 0px; background-size: 100%;background-image: url(SaveToDisk.png);" >Save To Disk</button>
 			<button  id="upload-file" style="height:80px;width:62px; font-size: 0px; background-size: 100%;background-image: url(upload.png);" onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSe3_xiT3WFPd3792NBW3GHEJ_Ny0wxyKpP7fcJp7eNheOAyoA/viewform?usp=sf_link';">Upload Files</button>
@@ -146,6 +147,10 @@
 		    <div align="center">
 			<div style="display: inline-block; margin-top: 10px;" id="recording-player"></div>
 		    </div>
+		    <br>	
+		    <header style="text-align: center; margin: 0;font-size:30px;"><b>Please use the video recorder tool on Google Chrome.</b>	
+        	    </header>	
+		    <br>
 		</section>
         </div>
     </div>
@@ -200,8 +205,8 @@
 //            var vidHeight = Math.min(0.7*screen.height, 720);
 //            var vidWidth = Math.min(0.7*screen.width, 1280);
             var aspectratio = 720.0/1280.0;            
-            var vidHeight = 0.7*screen.height;
-            var vidWidth = 0.7*screen.width;
+            var vidHeight = 0.64*screen.height;
+            var vidWidth = 0.64*screen.width;
 
             
             if (vidHeight > vidWidth*aspectratio){
@@ -241,113 +246,30 @@
 
             var btnStartRecording = document.querySelector('#btn-start-recording');
 	    var btnPlayRecording = document.querySelector('#btn-play-recording');
+	    var btnStopRecording = document.querySelector('#btn-stop-recording');	
+	    var btnPauseRecording = document.querySelector('#btn-pause-recording');	
+	    btnStopRecording.disabled = true;	
+	    btnPauseRecording.disabled = true;	
+	    btnPlayRecording.disabled = true;
 
             window.onbeforeunload = function() {
                 btnStartRecording.disabled = false;
                 recordingMedia.disabled = false;
                 mediaContainerFormat.disabled = false;
 		btnPlayRecording.disabled = true;
+		btnStopRecording.disabled = true;	
+	    	btnPauseRecording.disabled = true;
 
                 chkFixSeeking.parentNode.style.display = 'inline-block';
             };
 
             btnStartRecording.onclick = function(event) {
 		btnPlayRecording.disabled = true;
+		button.disabled = true;	
+		btnStopRecording.disabled = false;	
+		btnPauseRecording.disabled = false;
                 var button = btnStartRecording;
 		        recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = '<img src="https://www.webrtc-experiment.com/images/progress.gif">';
-                if(button.innerHTML === 'Stop Recording') {
-		    btnPlayRecording.disabled = false;
-		    recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = '';
-                    
-                    button.disabled = true;
-                    button.disableStateWaiting = true;
-                    setTimeout(function() {
-                        button.disabled = false;
-                        button.disableStateWaiting = false;
-                    }, 500);
-
-                    button.innerHTML = 'Start Recording';
-					button.style.backgroundImage = "url('record.PNG')";
-                    function stopStream() {
-                        if(button.stream && button.stream.stop) {
-                            button.stream.stop();
-							button.stream = null;
-                        }
-
-                        if(button.stream instanceof Array) {
-                            button.stream.forEach(function(stream) {
-                                stream.stop();
-								button.stream.getTracks()[0].stop();
-                            });
-                            button.stream = null;
-                        }
-
-                        videoBitsPerSecond = null;
-                        var html = 'Recording status: stopped';
-                        //html += '<br>Size: ' + bytesToSize(button.recordRTC.getBlob().size);
-                        //recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = html;
-                        recordingPlayer.autoplay = false;
-                        recordingPlayer.pause();
-                    }
-					
-                    if(button.recordRTC) {
-                        if(button.recordRTC.length) {
-                            button.recordRTC[0].stopRecording(function(url) {
-                                if(!button.recordRTC[1]) {
-                                    button.recordingEndedCallback(url);
-                                    stopStream();
-
-                                    saveToDiskOrOpenNewTab(button.recordRTC[0]);
-                                    return;
-                                }
-
-                                button.recordRTC[1].stopRecording(function(url) {
-                                    button.recordingEndedCallback(url);
-                                    stopStream();
-                                });
-                            });
-                        }
-                        else {
-                            button.recordRTC.stopRecording(function(url) {
-                                if(button.blobs && button.blobs.length) {
-                                    var blob = new File(button.blobs, getFileName(fileExtension), {
-                                        type: mimeType
-                                    });
-                                    
-                                    button.recordRTC.getBlob = function() {
-                                        return blob;
-                                    };
-
-                                    url = URL.createObjectURL(blob);
-                                }
-
-                                if(chkFixSeeking.checked === true) {
-                                    // to fix video seeking issues
-                                    getSeekableBlob(button.recordRTC.getBlob(), function(seekableBlob) {
-                                        button.recordRTC.getBlob = function() {
-                                            return seekableBlob;
-                                        };
-
-                                        url = URL.createObjectURL(seekableBlob);
-
-                                        button.recordingEndedCallback(url);
-                                        saveToDiskOrOpenNewTab(button.recordRTC);
-                                        stopStream();
-                                    })
-                                    return;
-                                }
-
-                                button.recordingEndedCallback(url);
-                                saveToDiskOrOpenNewTab(button.recordRTC);
-                                stopStream();
-                            });
-                        }
-                    }
-
-                    stopStream();
-                    return;
-                }
-
                 if(!event) return;
 
                 button.disabled = true;
@@ -359,19 +281,19 @@
                             button.mediaCapturedCallback();
                         }
 
-                        button.innerHTML = 'Stop Recording';
-						button.style.backgroundImage = "url('Stop.png')";
-                        button.disabled = false;
+                        //button.innerHTML = 'Stop Recording';
+			//			button.style.backgroundImage = "url('Stop.png')";
+                        button.disabled = true;
 
                         chkFixSeeking.parentNode.style.display = 'none';
                     },
                     onMediaStopped: function() {
                         button.innerHTML = 'Start Recording';
-
+			button.disabled = false;
                         if(!button.disableStateWaiting) {
                             button.disabled = false;
                         }
-
+			
                         chkFixSeeking.parentNode.style.display = 'inline-block';
                         recordingPlayer.pause();
                     },
@@ -1146,6 +1068,7 @@
         <script>
             var btnPauseRecording = document.querySelector('#btn-pause-recording');
             btnPauseRecording.onclick = function() {
+		 
                 if(!btnStartRecording.recordRTC) {
                     
                     return;
@@ -1153,6 +1076,7 @@
 
                 btnPauseRecording.disabled = true;
                 if(btnPauseRecording.innerHTML === 'Pause') {
+		    btnStopRecording.disabled = true;
                     btnStartRecording.disabled = true;
                     chkFixSeeking.parentNode.style.display = 'none';
                     btnStartRecording.recordRTC.pauseRecording();
@@ -1180,9 +1104,101 @@
                     setTimeout(function() {
                         btnPauseRecording.disabled = false;
                     }, 500);
+		    btnStopRecording.disabled = false;
                 }
             };
 
+	    var btnStopRecording = document.querySelector('#btn-stop-recording');	
+			btnStopRecording.onclick = function() {	
+			btnPlayRecording.disabled = false;	
+			btnPauseRecording.disabled = true;	
+					var button = btnStartRecording;	
+		           btnStopRecording.disabled = true;	
+				btnPauseRecording.disabled = true; recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = '';	
+                    	
+                    button.disabled = true;	
+                    button.disableStateWaiting = true;	
+                    setTimeout(function() {	
+                        button.disabled = false;	
+                        button.disableStateWaiting = false;	
+                    }, 500);	
+                    button.innerHTML = 'Start Recording';	
+					button.style.backgroundImage = "url('record.PNG')";	
+                    function stopStream() {	
+                        if(button.stream && button.stream.stop) {	
+                            button.stream.stop();	
+							button.stream = null;	
+                        }	
+                        if(button.stream instanceof Array) {	
+                            button.stream.forEach(function(stream) {	
+                                stream.stop();	
+								button.stream.getTracks()[0].stop();	
+                            });	
+                            button.stream = null;	
+                        }	
+                        videoBitsPerSecond = null;	
+                        var html = 'Recording status: stopped';	
+                        //html += '<br>Size: ' + bytesToSize(button.recordRTC.getBlob().size);	
+                        //recordingPlayer.parentNode.parentNode.querySelector('h2').innerHTML = html;	
+                        recordingPlayer.pause();	
+                    }	
+						
+                    if(button.recordRTC) {	
+                        if(button.recordRTC.length) {	
+                            button.recordRTC[0].stopRecording(function(url) {	
+                                if(!button.recordRTC[1]) {	
+                                    button.recordingEndedCallback(url);	
+                                    stopStream();	
+                                    saveToDiskOrOpenNewTab(button.recordRTC[0]);	
+                                    return;	
+                                }	
+                                button.recordRTC[1].stopRecording(function(url) {	
+                                    button.recordingEndedCallback(url);	
+                                    stopStream();	
+                                });	
+                            });	
+                        }	
+                        else {	
+                            button.recordRTC.stopRecording(function(url) {	
+                                if(button.blobs && button.blobs.length) {	
+                                    var blob = new File(button.blobs, getFileName(fileExtension), {	
+                                        type: mimeType	
+                                    });	
+                                    	
+                                    button.recordRTC.getBlob = function() {	
+                                        return blob;	
+                                    };	
+                                    url = URL.createObjectURL(blob);	
+                                }	
+                                if(chkFixSeeking.checked === true) {	
+                                    // to fix video seeking issues	
+                                    getSeekableBlob(button.recordRTC.getBlob(), function(seekableBlob) {	
+                                        button.recordRTC.getBlob = function() {	
+                                            return seekableBlob;	
+                                        };	
+                                        url = URL.createObjectURL(seekableBlob);	
+													
+                                        button.recordingEndedCallback(url);	
+                                        						recordingPlayer.autoplay = false;	
+					recordingPlayer.pause();	
+saveToDiskOrOpenNewTab(button.recordRTC);	
+                                        stopStream();	
+																
+                                    })	
+                                    return;	
+                                }	
+                                button.recordingEndedCallback(url);	
+                                saveToDiskOrOpenNewTab(button.recordRTC);	
+                                stopStream();	
+                            });	
+                        }	
+                    }	
+                    stopStream();	
+					recordingPlayer.autoplay = false;	
+                    return;	
+			
+			}
+		
             var btnPlayRecording = document.querySelector('#btn-play-recording');
             btnPlayRecording.onclick = function() {
 			if(btnPlayRecording.innerHTML === 'Play Recording'){
