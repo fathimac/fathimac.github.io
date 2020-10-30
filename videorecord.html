@@ -133,7 +133,7 @@
 			</select>
 
 			<select hidden class="media-bitrates">
-			    <option value="2000">Default bitrates</option>
+			    <option value="1485000">Default bitrates</option>
 			</select>
 		    </h2>
 
@@ -367,10 +367,12 @@
                 
 
                 if(mediaContainerFormat.value === 'default') {
-                    mimeType = 'video/webm';
+                    mimeType = 'video/webm;codecs=vp9';
                     fileExtension = 'webm';
                     recorderType = null;
                     type = 'video';
+                    videoBitsPerSecond = 1485000;
+                   
                 }
 
                 
@@ -485,7 +487,18 @@
             };
 
             function captureVideo(config) {
-                captureUserMedia({video: true}, function(videoStream) {
+                captureUserMedia({video: {
+                                    mandatory: {
+                                        maxHeight: 720,
+                                        maxWidth: 1280
+                                    },
+                                    optional: [
+                                        {minWidth: 640},
+                                        {minWidth: 960},
+                                        {minWidth: 1080},
+                                        {minWidth: 1280}
+                                    ]
+                                }}, function(videoStream) {
                     config.onMediaCaptured(videoStream);
 
                     addStreamStopListener(videoStream, function() {
@@ -950,7 +963,11 @@
                 var year = d.getUTCFullYear();
                 var month = d.getUTCMonth();
                 var date = d.getUTCDate();
-                return 'RecordRTC-' + year + month + date + '-' + getRandomString() + '.' + fileExtension;
+                var hour = d.getUTCHours();
+                var minute = d.getUTCMinutes();
+                var seconds = d.getUTCSeconds();   
+                var milliseconds = d.getUTCMilliseconds();
+                return 'Record_' + year + '-' + month + '-' + date + '_' + hour + '-' + minute + '-' + seconds + '-' + milliseconds + '.' + fileExtension;
             }
 
             function SaveFileURLToDisk(fileUrl, fileName) {
