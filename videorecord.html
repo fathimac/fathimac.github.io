@@ -194,7 +194,10 @@
             var mediaElement = getHTMLMediaElement(video, {
                 title: ' ',
                 buttons: [/*'full-screen', 'take-snapshot'*/],
-                showOnMouseEnter: false
+                showOnMouseEnter: false,
+		transform: rotateY(180deg);
+    				-webkit-transform:rotateY(180deg); /* Safari and Chrome */
+    				-moz-transform:rotateY(180deg); 
             });
             document.getElementById('recording-player').appendChild(mediaElement);
 
