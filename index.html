@@ -13,7 +13,8 @@ img {vertical-align: middle;}
 
 /* Slideshow container */
 .slideshow-container {
-  max-width: 1000px;
+  width: 1200px;
+  max-width: 90%;
   position: relative;
   margin: auto;
 }
@@ -48,7 +49,7 @@ img {vertical-align: middle;}
 /* Caption text */
 .text {
   color: #f2f2f2;
-  font-size: 15px;
+  font-size: 18px;
   padding: 8px 12px;
   position: absolute;
   bottom: 8px;
@@ -102,8 +103,7 @@ img {vertical-align: middle;}
 }
 body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 .video-container {
-  width: 100%;
-  height: 100%; 
+  max-width: 100%;  
   overflow: hidden;
 }
 .video-container video {
@@ -114,9 +114,7 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   /* Setting width & height to auto prevents the browser from stretching or squishing the video */
   width: auto;
   height: auto;
-
  
-  
 }
 <style>
 .button {
@@ -145,7 +143,21 @@ and is wrapped around the whole page content, except for the footer in this exam
 <header class="w3-container w3-center w3-padding-32"> 
   <h1><b>Data Collection Instructions</b></h1>
 </header>
- 
+    
+<h2> Overview </h2>    
+    
+<p style="font-size:120%;">    
+    The purpose of our research is to improve technology that helps people interact with devices like television, computers, and other computing devices. We are collecting videos for solving the problem of distinguishing between images where a person’s finger touches a flat surfaced object and when they do not touch the object. You will be asked to draw some predefined gestures on 10 flat surfaced objects from a given list while recording it. After recording the video, you can upload it using a google form. The data collected will be used in the study as well as be released for public research purposes.
+    
+
+</p>    
+
+<p style="font-size:120%;">
+    You must be 18 years old or older. You must have a laptop with a camera and internet connection. To participate, first view the step-by-step slides and watch the instructional video below. Then, click on the link at the bottom of this page to go the to consent form and data recording tool. The whole process will take from 10 to 15 minutes.    
+</p>    
+        
+<h2> Step-by-step instructions </h2>     
+    
 <div class="slideshow-container">
 
   <!-- Full-width images with number and caption text -->
@@ -222,23 +234,26 @@ function showSlides(n) {
   dots[slideIndex-1].className += " active";
 }
 </script>
-<br>
- <!--Demo Video -->
-  <div class="video-container">
- <h3><b><center>Demo Video</center></b></h3>
-   <p align="center"> <iframe width="560" height="315" src="https://www.youtube.com/embed/2y9jQePNYpw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+    
+<br>    
+<h2> Instruction video </h2>    
+    
+<!--Demo Video -->
+<div class="video-container" align="center">
+<iframe width="1200" height="700" src="https://www.youtube.com/embed/2y9jQePNYpw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
    
-    <br>
-    <br>
-    <div class="w3-container">
-      <p align = "center"><header><h1>This is a sample video that shows how video is recorded. When you are ready, click on the below button to sign the consent form.<h1></header></p>
-       
-    </div>
-    <div>
-      <p align = "center"><button class="button button4" style="border: none; color: white; padding: 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 25px; margin: 4px 2px;" onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSdsqc_hmcv1csuRoL5OmEWgzKynMaSbmOCLRhhKEoCjOqhYbA/viewform?usp=sf_link';">Sign the Consent Form</button></p>
-      </div>
-  </div>
-<!-- END BLOG ENTRIES -->
+<h2>Final step</h2>
+    
+<p style="font-size:120%;">
+Once you have understood the instructions, please click the below to read the consent form and visit the data collection tool. 
+</p>      
+    
+    
+
+
+<div>
+<p align = "center"><button class="button button4" style="border: none; color: white; padding: 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 25px; margin: 4px 2px;" onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSdsqc_hmcv1csuRoL5OmEWgzKynMaSbmOCLRhhKEoCjOqhYbA/viewform?usp=sf_link';">Sign the Consent Form</button></p>
 </div>
 
 </body>
