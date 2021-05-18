@@ -36,8 +36,8 @@ for file in glob.glob("annotations.txt"):
             label = '1'
         elif count1-1 in result.keys() and result[count1-1] == 'TwoClick':
             label = '0'
-    f_temp = file.lstrip("annores")
-    f_temp = f_temp[:-4]
-    file_output = "label"+f_temp+".csv"
+    #f_temp = file.lstrip("annores")
+    #f_temp = f_temp[:-4]
+    file_output = "label.csv"
     df = pd.DataFrame(final_labels)
     df.to_csv(file_output, index=False, header=False)
